@@ -34,7 +34,7 @@ function calcCerveja(adultos, duracao) {
     }
 }
 function calcRefri(adultos, criancas, duracao) {
-    let consumo = 0.2; //20% de uma garrafa de 2lt = 400ml.
+    let consumo = 0.5; //50% de uma garrafa de 2lt = 1000ml.
     adultos = consumoAdulto (adultos, consumo);
     criancas = consumoRefriCrianca (criancas, consumo);
     consumo = adultos + criancas;
@@ -56,4 +56,4 @@ function consumoRefriCrianca (criancas, consumo){
 //Carne (kg): se duração < 6h = 500gr > 6h = 750gr;
 //Cerveja (355ml): se duração < 6h = 3 latas > 6h = 2000ml;
 //Refrigerante (2l):  se duração < 6h = 1000ml > 6h = 1500ml;
-//Crianças não consomem cerveja, consomem o dobro de refrigerante e metade de carne que um adulto;
+//Crianças consomem metade de um adulto e não consomem cerveja;
