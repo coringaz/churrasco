@@ -14,6 +14,7 @@ input {
     box-sizing: border-box;
     margin-bottom: 10px;
     padding: 8px;
+    text-align: center;
 }
 h1 {
     margin-top: 0px;
@@ -23,4 +24,8 @@ button {
     text-align: center;
     width: 150px;
     height: auto;
+}
+h6 {
+    text-align: right;
+    margin-bottom: -10px;
 }

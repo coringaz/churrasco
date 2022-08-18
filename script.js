@@ -1,45 +1,59 @@
-let inputAdultos = document.getElementById("adultos");
-let inputCrianca = document.getElementById("criancas");
-let inputDuracao = document.getElementById("duracao");
-
+let adultos = document.getElementById("adultos");
+let criancas = document.getElementById("criancas");
+let duracao = document.getElementById("duracao");
 let resultado = document.getElementById("resultado");
 
-function calcular(){
 
-    let adultos = inputAdultos.value;
-    let criancas = inputCrianca.value;
-    let duracao = inputDuracao.value;
-    let carne = quantCarne(duracao)/1000;
-    let cerveja = Math.ceil(quantCerveja(duracao)/355);
-    let refri = Math.ceil(quantRefri(duracao)/2000);
-
-    let quantCarneT = carne * adultos + (carne / 2 * criancas);
-    let quantCervejaT = cerveja * adultos;
-    let quantRefriT = refri * adultos + (refri / 2 * criancas);
-console.log(quantCarneT, quantCarneT, quantRefriT);
-    resultado.innerHTML = `<p>${quantCarneT} kg <br>de Carne.</p>`;
-    resultado.innerHTML += `<p>${quantCervejaT} latas <br>de cerveja.</p>`;
-    resultado.innerHTML += `<p>${quantRefriT} garrafas <br>de refrigerante 2lt.</p>`;
+function exibeResultado(){
+    let consumoCarne = calcCarne(adultos.value, criancas.value, duracao.value);
+    let consumoCerveja = calcCerveja(adultos.value, duracao.value);
+    let consumoRefri = calcRefri(adultos.value, criancas.value, duracao.value);
+    
+    resultado.innerHTML = `<p style="font-size: 28px;">${consumoCarne} kg <br>de Carne.</p>`;
+    resultado.innerHTML += `<p style="font-size: 28px;">${consumoCerveja} latas <br>de cerveja (355ml).</p>`;
+    resultado.innerHTML += `<p style="font-size: 28px;">${consumoRefri} garrafas <br>de refrigerante (2lt).</p>`;
 }
-function quantCarne(duracao) {
+function calcCarne(adultos, criancas, duracao) {
+    let consumo = 0.500;
+    adultos = consumoAdulto (adultos, consumo);
+    criancas = consumoCarneCrianca (criancas, consumo);
+    consumo = adultos + criancas;
     if(duracao >= 6){
-        return 650;
+        return consumo * 1.5; //consumo aumenta 50%.
+    }else{
+        return consumo;
     }
-    return 400;
 }
-function quantCerveja(duracao) {
+function calcCerveja(adultos, duracao) {
+    let consumo = 3;
+    consumo = consumoAdulto (adultos, consumo);
     if(duracao >= 6){
-        return 2000;
+        return consumo * 1.5; //consumo aumenta 50%.
+    }else{
+        return consumo;
     }
-    return 1200;
 }
-function quantRefri(duracao) {
+function calcRefri(adultos, criancas, duracao) {
+    let consumo = 0.2; //20% de uma garrafa de 2lt = 400ml.
+    adultos = consumoAdulto (adultos, consumo);
+    criancas = consumoRefriCrianca (criancas, consumo);
+    consumo = adultos + criancas;
     if(duracao >= 6){
-        return 1500;
+        return Math.ceil(consumo * 1.5); //consumo aumenta 50%.
+    }else{
+        return Math.ceil(consumo);
     }
-    return 1000;
 }
-//Carne (kg): se duração < 6h = 400gr > 6h = 650gr;
-//Cerveja (355ml): se duração < 6h = 1200ml > 6h = 2000ml;
+function consumoAdulto (adultos, consumo){
+    return adultos * consumo;
+}
+function consumoCarneCrianca (criancas, consumo){
+    return criancas * (consumo/2);
+}
+function consumoRefriCrianca (criancas, consumo){
+    return criancas * (consumo*2);
+}
+//Carne (kg): se duração < 6h = 500gr > 6h = 750gr;
+//Cerveja (355ml): se duração < 6h = 3 latas > 6h = 2000ml;
 //Refrigerante (2l):  se duração < 6h = 1000ml > 6h = 1500ml;
-//Crianças não consomem cerveja e consomem metade de um adulto;
+//Crianças não consomem cerveja, consomem o dobro de refrigerante e metade de carne que um adulto;
