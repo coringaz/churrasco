@@ -9,9 +9,9 @@ function exibeResultado(){
     let consumoCerveja = calcCerveja(adultos.value, duracao.value);
     let consumoRefri = calcRefri(adultos.value, criancas.value, duracao.value);
     
-    resultado.innerHTML = `<p style="font-size: 28px;">${consumoCarne} kg <br>de Carne.</p>`;
-    resultado.innerHTML += `<p style="font-size: 28px;">${consumoCerveja} latas <br>de cerveja (355ml).</p>`;
-    resultado.innerHTML += `<p style="font-size: 28px;">${consumoRefri} garrafas <br>de refrigerante (2lt).</p>`;
+    resultado.innerHTML = `<p style="font-size: 20px;">${consumoCarne} kg de Carne.</p>`;
+    resultado.innerHTML += `<p style="font-size: 20px;">${consumoCerveja} latas de cerveja(355ml).</p>`;
+    resultado.innerHTML += `<p style="font-size: 20px;">${consumoRefri} garrafas de refrigerante(2lt).</p>`;
 }
 function calcCarne(adultos, criancas, duracao) {
     let consumo = 0.500;
